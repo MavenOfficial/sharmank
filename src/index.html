@@ -107,6 +107,36 @@
         </table>
     </div>
 
+    <div id="google-form">
+        
+<form id="myForm">
+  <label for="humanityID">Humanity ID:</label>
+  <input type="text" id="humanityID" name="humanityID" onblur="fetchDetails()"><br><br>
+  <label for="name">Name:</label>
+  <input type="text" id="name" name="name" readonly><br><br>
+  <label for="mobileNumber">Mobile Number:</label>
+  <input type="text" id="mobileNumber" name="mobileNumber" readonly><br><br>
+</form>
+
+<script>
+  function fetchDetails() {
+    var humanityID = document.getElementById("humanityID").value;
+    fetch("https://script.google.com/macros/s/AKfycbz67Jl6BDmU5J0ZjfjScgUSafyYX4JfB65hlGxttk76mRQtjIetMvsN8vrGm1oieIjW/exec" + encodeURIComponent(humanityID))
+      .then(response => response.json())
+      .then(data => {
+        if (data.name) {
+          document.getElementById("name").value = data.name;
+          document.getElementById("mobileNumber").value = data.mobileNumber;
+        } else {
+          alert("Humanity ID not found");
+        }
+      })
+      .catch(error => console.error("Error:", error));
+  }
+</script>
+
+    </div>
+
     <div id="application">
         <h2>Submit Your Application</h2>
 
